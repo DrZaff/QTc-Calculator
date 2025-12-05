@@ -378,3 +378,29 @@ input[type=number]::-webkit-outer-spin-button {
 input[type=number] {
   -moz-appearance: textfield;
 }
+
+/* ---- Center header content ---- */
+.app-header {
+  justify-content: center !important;
+  text-align: center;
+}
+
+/* Ensure badge centers under title when stacked */
+@media (max-width: 640px) {
+  .app-header {
+    flex-direction: column;
+    align-items: center !important;
+  }
+}
+
+/* Center title + subtitle */
+.app-title,
+.app-subtitle {
+  text-align: center;
+}
+
+/* Center footer text */
+.app-footer {
+  text-align: center;
+}
+
