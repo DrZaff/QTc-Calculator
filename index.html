@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>QTc Calculator – ClinicalToolsDEV</title>
+  <title>HEART Score Calculator – ClinicalToolsDEV</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#050810" />
 
@@ -20,10 +20,10 @@
 <body>
   <div class="app-shell">
     <header class="app-header">
-      <h1 class="app-title">QTc Calculator</h1>
+      <h1 class="app-title">HEART Score Calculator</h1>
       <p class="app-subtitle">
-        Corrected QT interval using Bazett, Fridericia, Framingham, Hodges & Rautaharju
-        for narrow QRS, and Bogossian + Rautaharju methods for wide QRS.
+        Estimates risk of major adverse cardiac events (MACE) in adult patients
+        with chest pain using the HEART score (History, ECG, Age, Risk factors, Troponin).
       </p>
 
       <div class="app-meta">
@@ -32,194 +32,134 @@
     </header>
 
     <main class="app-main">
-      <!-- Inputs -->
+      <!-- Inputs Card -->
       <section class="card card-inputs">
         <h2 class="card-title">Inputs</h2>
         <form id="tool-form" class="form-grid">
-          <!-- QRS Type -->
+          <!-- History -->
           <div class="form-field">
-            <label for="qrsType" class="field-label">QRS Type</label>
-            <select id="qrsType" name="qrsType" class="field-input">
-              <option value="narrow">Narrow Complex QRS (&lt;120 ms)</option>
-              <option value="wide">Wide Complex QRS (&ge;120 ms)</option>
+            <label for="historyScore" class="field-label">
+              History (clinical suspicion)
+            </label>
+            <select id="historyScore" name="historyScore" class="field-input" required>
+              <option value="">Select...</option>
+              <option value="0">0 – Slightly suspicious</option>
+              <option value="1">1 – Moderately suspicious</option>
+              <option value="2">2 – Highly suspicious</option>
             </select>
             <p class="field-help">
-              Select based on QRS duration. Wide QRS mode will prompt for QRS and gender.
+              Overall impression of chest pain history and associated features.
             </p>
           </div>
 
-          <!-- HR -->
+          <!-- ECG -->
           <div class="form-field">
-            <label for="heartRate" class="field-label">Heart Rate (bpm)</label>
+            <label for="ecgScore" class="field-label">
+              ECG
+            </label>
+            <select id="ecgScore" name="ecgScore" class="field-input" required>
+              <option value="">Select...</option>
+              <option value="0">0 – Normal</option>
+              <option value="1">1 – Non-specific repolarization abnormalities</option>
+              <option value="2">2 – Significant ST deviation</option>
+            </select>
+            <p class="field-help">
+              Do not use this tool as a stand-alone STEMI detector.
+            </p>
+          </div>
+
+          <!-- Age -->
+          <div class="form-field">
+            <label for="ageYears" class="field-label">
+              Age (years)
+            </label>
             <input
-              id="heartRate"
-              name="heartRate"
+              id="ageYears"
+              name="ageYears"
               type="number"
+              min="0"
               step="1"
               class="field-input"
               required
-            />
-            <p class="field-help">Measured ventricular rate in beats per minute.</p>
-          </div>
-
-          <!-- QT -->
-          <div class="form-field">
-            <label for="qtInterval" class="field-label">QT Interval (ms)</label>
-            <input
-              id="qtInterval"
-              name="qtInterval"
-              type="number"
-              step="1"
-              class="field-input"
-              required
-            />
-            <p class="field-help">Onset of QRS to end of T wave, in milliseconds.</p>
-          </div>
-
-          <!-- QRS (wide-mode only) -->
-          <div class="form-field wide-only">
-            <label for="qrsDuration" class="field-label">QRS Duration (ms)</label>
-            <input
-              id="qrsDuration"
-              name="qrsDuration"
-              type="number"
-              step="1"
-              class="field-input"
             />
             <p class="field-help">
-              Required for wide QRS (e.g., BBB, paced rhythm, IVCD).
+              HEART score is validated for adults (≥18 years) with chest pain.
             </p>
           </div>
 
-          <!-- Gender (wide-mode only, for Rautaharju wide) -->
-          <div class="form-field wide-only">
-            <span class="field-label">Gender (for Rautaharju wide)</span>
-            <div class="field-radio-row">
-              <label class="radio-option">
-                <input
-                  type="radio"
-                  name="gender"
-                  value="male"
-                  checked
-                />
-                <span>Male</span>
+          <!-- Risk Factors -->
+          <div class="form-field">
+            <span class="field-label">Risk factors</span>
+            <div class="checkbox-grid">
+              <label class="checkbox-item">
+                <input type="checkbox" class="risk-factor" value="dm" />
+                <span>Diabetes mellitus</span>
               </label>
-              <label class="radio-option">
-                <input
-                  type="radio"
-                  name="gender"
-                  value="female"
-                />
-                <span>Female</span>
+              <label class="checkbox-item">
+                <input type="checkbox" class="risk-factor" value="smoker" />
+                <span>Current or recent smoker</span>
+              </label>
+              <label class="checkbox-item">
+                <input type="checkbox" class="risk-factor" value="htn" />
+                <span>Hypertension</span>
+              </label>
+              <label class="checkbox-item">
+                <input type="checkbox" class="risk-factor" value="hld" />
+                <span>Hyperlipidemia</span>
+              </label>
+              <label class="checkbox-item">
+                <input type="checkbox" class="risk-factor" value="obesity" />
+                <span>Obesity (BMI ≥ 30)</span>
+              </label>
+              <label class="checkbox-item">
+                <input type="checkbox" class="risk-factor" value="fhx" />
+                <span>Family history of CAD</span>
+              </label>
+              <label class="checkbox-item checkbox-item--strong">
+                <input type="checkbox" class="risk-factor" value="knownAthero" />
+                <span>Known atherosclerotic disease (prior MI/PCI/CABG/PAD/stroke)</span>
               </label>
             </div>
             <p class="field-help">
-              Used only for wide QRS Rautaharju QTc. Narrow QRS modes use a sex-neutral
-              Rautaharju variant.
+              HEART scoring: 0 pts = none; 1 pt = 1–2 risk factors; 2 pts = ≥3 or known atherosclerotic disease.
+            </p>
+          </div>
+
+          <!-- Troponin -->
+          <div class="form-field">
+            <label for="tropScore" class="field-label">
+              Troponin (relative to lab upper limit)
+            </label>
+            <select id="tropScore" name="tropScore" class="field-input" required>
+              <option value="">Select...</option>
+              <option value="0">0 – ≤ normal limit</option>
+              <option value="1">1 – 1–3× normal limit</option>
+              <option value="2">2 – &gt;3× normal limit</option>
+            </select>
+            <p class="field-help">
+              Use your lab’s reference range to categorize the measured value.
             </p>
           </div>
 
           <button type="submit" class="btn-primary">
-            Calculate QTc
+            Interpret HEART Score
           </button>
         </form>
       </section>
 
-      <!-- Results -->
+      <!-- Results Card -->
       <section class="card card-results">
         <h2 class="card-title">Results</h2>
         <div id="results-container" class="results-body">
           <p class="results-placeholder">
-            Enter values and click "Calculate QTc" to view results.
+            Enter values and click "Interpret HEART Score" to view results.
           </p>
         </div>
-
-        <!-- Collapsible formulas -->
-        <details class="collapsible">
-          <summary class="collapsible-summary">Show QTc formulas</summary>
-          <div class="collapsible-body">
-            <p class="collapsible-intro">
-              All formulas assume QT and QRS in milliseconds and RR in seconds.
-            </p>
-            <ul class="formula-list">
-              <li>
-                <strong>Bazett</strong> (Bazett 1920)<br />
-                QTc = QT / √RR
-              </li>
-              <li>
-                <strong>Fridericia</strong> (Fridericia 1920)<br />
-                QTc = QT / RR<sup>1/3</sup>
-              </li>
-              <li>
-                <strong>Framingham</strong> (Sagie et al. 1992)<br />
-                QTc = QT + 154 &times; (1 − RR)
-              </li>
-              <li>
-                <strong>Hodges</strong> (Hodges et al. 1983)<br />
-                QTc = QT + 1.75 &times; [(60 / RR) − 60]
-              </li>
-              <li>
-                <strong>Rautaharju (HR-based, narrow QRS)</strong><br />
-                QTc = QT &times; (120 + HR) / 180
-              </li>
-              <li>
-                <strong>Bogossian method (wide QRS)</strong><br />
-                QT<sub>m</sub> = QT − 0.5 &times; QRS<br />
-                QTc<sub>Fridericia</sub> = QT<sub>m</sub> / RR<sup>1/3</sup>
-              </li>
-              <li>
-                <strong>Rautaharju wide-QRS (QT8)</strong><br />
-                QTc = QT − 155 &times; (60 / HR − 1) − 0.93 &times; (QRS − 139) + k<br />
-                k = −22 ms (men), k = −34 ms (women)
-              </li>
-            </ul>
-          </div>
-        </details>
-
-        <!-- Collapsible references -->
-        <details class="collapsible">
-          <summary class="collapsible-summary">Show references</summary>
-          <div class="collapsible-body">
-            <ol class="references-list">
-              <li>
-                Bazett HC. An analysis of the time-relations of electrocardiograms.
-                <em>Heart</em>. 1920;7:353–70.
-              </li>
-              <li>
-                Fridericia LS. Die Systolendauer im Elektrokardiogramm bei normalen
-                Menschen und bei Herzkranken. <em>Acta Med Scand</em>. 1920;53:469–486.
-                (Translated reprint: <em>Ann Noninvasive Electrocardiol</em>.
-                2003;8(4):343–51.)
-              </li>
-              <li>
-                Sagie A, Larson MG, Goldberg RJ, Bengtson JR, Levy D.
-                An improved method for adjusting the QT interval for heart rate
-                (the Framingham Heart Study). <em>Am J Cardiol</em>.
-                1992;70(7):797–801.
-              </li>
-              <li>
-                Hodges MS, Salerno D, Erlinen D. Bazett's QT correction reviewed:
-                evidence that a linear QT correction for heart rate is better.
-                <em>J Am Coll Cardiol</em>. 1983;1:694.
-              </li>
-              <li>
-                Rautaharju PM, Mason JW, Akiyama T. New age- and sex-specific criteria
-                for QT prolongation based on rate correction formulas that minimize
-                bias at the upper normal limits. <em>Int J Cardiol</em>. 2014;174:535–40.
-              </li>
-              <li>
-                Rautaharju PM, Zhang ZM. Linearly scaled, rate-invariant normal limits
-                for QT interval: eight decades of incorrect application of power
-                functions. <em>J Cardiovasc Electrophysiol</em>. 2002;13:1211–1218.
-              </li>
-            </ol>
-          </div>
-        </details>
       </section>
 
-      <!-- Flags & Notes -->
+      <!-- Flags Card -->
       <section class="card card-warnings">
-        <h2 class="card-title">Flags & Notes</h2>
+        <h2 class="card-title">Flags &amp; Notes</h2>
         <div id="flags-container" class="flags-body">
           <p class="results-placeholder">
             Any critical values, red flags, or important notes will appear here.
@@ -232,19 +172,25 @@
       <p class="disclaimer">
         This tool is for educational and decision-support purposes only. It does
         not replace clinical judgment, institutional guidelines, or specialist
-        consultation. QT and QTc values must be interpreted in full clinical context.
+        consultation.
+      </p>
+      <p class="citation">
+        Brady W, de Souza K. The HEART score: A guide to its application in the emergency
+        department. Turk J Emerg Med. 2018 Jun 14;18(2):47-51. doi: 10.1016/j.tjem.2018.04.004.
+        PMID: 29922729; PMCID: PMC6005932.
       </p>
     </footer>
   </div>
 
   <script src="script.js"></script>
   <script>
-     if ("serviceWorker" in navigator) {
-       window.addEventListener("load", () => {
-         navigator.serviceWorker
-           .register("./service-worker.js")
-           .catch(err => console.error("Service worker registration failed:", err));
-       });
-     }
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", () => {
+        navigator.serviceWorker
+          .register("./service-worker.js")
+          .catch(err => console.error("Service worker registration failed:", err));
+      });
+    }
+  </script>
 </body>
 </html>
