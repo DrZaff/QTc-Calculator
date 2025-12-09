@@ -25,14 +25,8 @@
   box-sizing: border-box;
 }
 
-html,
 body {
   margin: 0;
-  padding: 0;
-  overflow-x: hidden;
-}
-
-body {
   min-height: 100vh;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
     sans-serif;
@@ -50,7 +44,7 @@ body {
 
 .app-header {
   text-align: center;
-  margin-bottom: 1.75rem;
+  margin-bottom: 1.5rem;
   max-width: 720px;
   margin-left: auto;
   margin-right: auto;
@@ -62,17 +56,17 @@ body {
 }
 
 .app-subtitle {
-  margin: 0.5rem auto 0.75rem auto;
+  margin: 0.4rem auto 0;
   color: var(--color-text-secondary);
   font-size: 0.95rem;
-  max-width: 40rem;
   line-height: 1.4;
+  max-width: 40rem;
 }
 
 .app-meta {
   display: flex;
   justify-content: center;
-  margin-top: 0.5rem;
+  margin-top: 0.6rem;
 }
 
 .app-badge {
@@ -189,28 +183,6 @@ body {
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.7);
 }
 
-/* ===== Checkboxes ===== */
-
-.checkbox-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 0.35rem 0.75rem;
-}
-
-.checkbox-item {
-  display: flex;
-  align-items: center;
-  gap: 0.45rem;
-  font-size: 0.85rem;
-  color: var(--color-text-secondary);
-}
-
-.checkbox-item input[type="checkbox"] {
-  width: 14px;
-  height: 14px;
-  accent-color: var(--color-accent-primary);
-}
-
 /* ===== Results / Flags ===== */
 
 .results-body,
@@ -224,8 +196,11 @@ body {
 }
 
 .results-section h3 {
-  margin: 0.75rem 0 0.35rem;
+  margin: 0.75rem 0 0.4rem;
   font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-text-secondary);
 }
 
 .results-list {
@@ -238,43 +213,31 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
-  gap: 0.5rem;
-  padding: 0.25rem 0;
-  border-bottom: 1px dashed rgba(255, 255, 255, 0.04);
+  padding: 0.2rem 0;
+  border-bottom: 1px solid rgba(27, 34, 53, 0.7);
 }
 
 .results-label {
-  font-size: 0.85rem;
+  font-size: 0.9rem;
   color: var(--color-text-secondary);
 }
 
 .results-value {
-  font-weight: 600;
-}
-
-.results-value--accent {
-  color: var(--color-text-accent);
+  font-variant-numeric: tabular-nums;
+  font-size: 0.9rem;
 }
 
 .results-value--danger {
   color: var(--color-text-danger);
+  font-weight: 600;
 }
 
-/* Validation errors */
-
-.results-errors h3 {
-  margin-top: 0;
-  font-size: 0.95rem;
-  color: var(--color-text-danger);
+.results-value--warning {
+  color: #ffc857;
+  font-weight: 600;
 }
 
-.results-errors ul {
-  margin: 0.35rem 0 0;
-  padding-left: 1.1rem;
-  font-size: 0.85rem;
-}
-
-/* Flags */
+/* Flag pills */
 
 .flag-pill {
   border-radius: 999px;
@@ -298,6 +261,12 @@ body {
   border-left: 3px solid #ff6b6b;
 }
 
+.flag-pill--info {
+  background: rgba(77, 163, 255, 0.06);
+  color: #4da3ff;
+  border-left: 3px solid #4da3ff;
+}
+
 /* ===== Footer (centered) ===== */
 
 .app-footer {
@@ -307,62 +276,117 @@ body {
   text-align: center;
 }
 
-.disclaimer,
-.citation {
-  margin: 0.5rem auto 0 auto;
-  max-width: 40rem;
-  line-height: 1.4;
+.disclaimer {
+  margin: 0;
 }
 
-/* Remove spinner arrows from number inputs */
+/* ===== Wide-only behaviour ===== */
 
-input[type="number"]::-webkit-outer-spin-button,
-input[type="number"]::-webkit-inner-spin-button {
+.wide-only {
+  display: none;
+}
+
+.wide-mode .wide-only {
+  display: flex;
+}
+
+.field-radio-row {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.radio-option {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.9rem;
+  color: var(--color-text-secondary);
+}
+
+/* Validation errors */
+
+.results-errors h3 {
+  margin: 0 0 0.4rem;
+  color: var(--color-text-danger);
+  font-size: 0.95rem;
+}
+
+.results-errors ul {
+  margin: 0;
+  padding-left: 1.1rem;
+  font-size: 0.85rem;
+  color: var(--color-text-secondary);
+}
+
+.results-note {
+  margin-top: 0.5rem;
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+}
+
+/* ===== Collapsibles ===== */
+
+.collapsible {
+  margin-top: 0.9rem;
+  border-top: 1px solid var(--color-border-subtle);
+  padding-top: 0.6rem;
+}
+
+.collapsible-summary {
+  list-style: none;
+  cursor: pointer;
+  font-size: 0.85rem;
+  color: var(--color-text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.collapsible-summary::before {
+  content: "▸";
+  font-size: 0.75rem;
+  transform-origin: center;
+  transition: transform 0.15s ease;
+}
+
+details[open] .collapsible-summary::before {
+  transform: rotate(90deg);
+}
+
+.collapsible-body {
+  margin-top: 0.4rem;
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+}
+
+.collapsible-intro {
+  margin: 0 0 0.4rem;
+}
+
+.formula-list,
+.references-list {
+  margin: 0;
+  padding-left: 1.1rem;
+}
+
+.formula-list li {
+  margin-bottom: 0.35rem;
+}
+
+.references-list li {
+  margin-bottom: 0.4rem;
+}
+
+/* ===== Number input tweaks ===== */
+
+/* Remove number input up/down arrows (Chrome, Edge, Safari) */
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
 
-input[type="number"] {
+/* Remove number input arrows (Firefox) */
+input[type=number] {
   -moz-appearance: textfield;
-}
-
-/* ===== Mobile tweaks (<= 600px) ===== */
-
-@media (max-width: 600px) {
-  .app-shell {
-    max-width: 100%;
-    margin: 0 auto;
-    padding: 2rem 0 2.5rem;
-  }
-
-  .app-header,
-  .app-footer,
-  .card {
-    max-width: 480px;
-    width: 100%;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  .app-title {
-    font-size: 1.6rem;
-    line-height: 1.2;
-  }
-
-  .app-subtitle {
-    max-width: 26rem;
-    font-size: 0.9rem;
-  }
-
-  .app-main {
-    grid-template-columns: 1fr;
-    gap: 1rem;
-    margin-top: 1rem;
-    justify-items: center;
-  }
-
-  .disclaimer,
-  .citation {
-    max-width: 26rem;
-  }
 }
