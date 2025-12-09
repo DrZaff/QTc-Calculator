@@ -380,22 +380,27 @@ input[type=number] {
   box-shadow: var(--shadow-card);
 }
 
-/* Center header content */
+/* Center text-only header */
 .app-header {
   text-align: center;
-  margin-bottom: 1.5rem;
+  margin-bottom: 2rem;
 }
 
-.app-header h1,
-.app-header p {
-  text-align: center;
+.app-header .app-title {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
 }
 
-/* Center the footer text */
-.app-footer {
-  text-align: center;
-  margin-top: 2rem;
-  opacity: 0.75;
-  font-size: 0.85rem;
+.app-header .app-subtitle {
+  max-width: 380px;
+  margin: 0.5rem auto 1rem auto;
+  line-height: 1.4;
+  opacity: 0.85;
+  font-size: 0.95rem;
 }
+
+.app-meta {
+  margin-top: 0.5rem;
+}
+
 
