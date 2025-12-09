@@ -2,13 +2,25 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>QTc Calculator – Narrow & Wide QRS</title>
+  <title>QTc Calculator – ClinicalToolsDEV</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#050810" />
+
+  <!-- PWA manifest & icons -->
+  <link rel="manifest" href="manifest.json" />
+  <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png" />
+  <link rel="icon" type="image/png" sizes="512x512" href="icons/icon-512.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon-180.png" />
+
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div class="app-shell">
     <header class="app-header">
+     <div class="app-header-left">
       <div>
         <h1 class="app-title">QTc Calculator</h1>
         <p class="app-subtitle">
@@ -228,5 +240,13 @@
   </div>
 
   <script src="script.js"></script>
+  <script>
+     if ("serviceWorker" in navigator) {
+       window.addEventListener("load", () => {
+         navigator.serviceWorker
+           .register("./service-worker.js")
+           .catch(err => console.error("Service worker registration failed:", err));
+       });
+     }
 </body>
 </html>

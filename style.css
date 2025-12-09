@@ -44,38 +44,31 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  gap: 0.75rem;
+  gap: 1rem;
   margin-bottom: 1.5rem;
 }
 
 .app-title {
   margin: 0;
-  font-size: 2.1rem;
-  font-weight: 700;
-  letter-spacing: 0.02em;
+  font-size: 1.8rem;
 }
 
 .app-subtitle {
-  margin: 0.45rem 0 0;
+  margin: 0.4rem 0 0;
   color: var(--color-text-secondary);
   font-size: 0.95rem;
-  max-width: 40rem;
-  line-height: 1.5;
 }
 
 .app-badge {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  padding: 0.3rem 0.85rem;
+  padding: 0.25rem 0.75rem;
   border-radius: 999px;
-  border: 1px solid rgba(22, 242, 154, 0.7);
-  font-size: 0.8rem;
+  border: 1px solid rgba(22, 242, 154, 0.5);
+  font-size: 0.75rem;
   text-transform: uppercase;
-  letter-spacing: 0.09em;
+  letter-spacing: 0.08em;
   color: var(--color-text-accent);
-  background: rgba(22, 242, 154, 0.08);
-  font-weight: 600;
 }
 
 .app-main {
@@ -88,14 +81,6 @@ body {
 @media (max-width: 900px) {
   .app-main {
     grid-template-columns: 1fr;
-  }
-}
-
-/* Stack header like HEART app on small screens */
-@media (max-width: 640px) {
-  .app-header {
-    flex-direction: column;
-    align-items: flex-start;
   }
 }
 
@@ -379,43 +364,18 @@ input[type=number] {
   -moz-appearance: textfield;
 }
 
-/* ---- Center header content ---- */
-.app-header {
-  justify-content: center !important;
-  text-align: center;
+.app-header-left {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
 }
 
-/* Ensure badge centers under title when stacked */
-@media (max-width: 640px) {
-  .app-header {
-    flex-direction: column;
-    align-items: center !important;
-  }
+.app-logo {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  object-fit: contain;
+  background: radial-gradient(circle, rgba(22, 242, 154, 0.12), transparent 60%);
+  border: 1px solid var(--color-border-subtle);
+  box-shadow: var(--shadow-card);
 }
-
-/* Center title + subtitle */
-.app-title,
-.app-subtitle {
-  text-align: center;
-}
-
-/* Center footer text */
-.app-footer {
-  text-align: center;
-}
-
-@media (max-width: 600px) {
-  /* ... you already have other rules here ... */
-
-  /* Prevent iOS Safari from zooming/offsetting on focus */
-  .field-input,
-  .field-input--compact {
-    font-size: 16px;         /* >=16px stops the zoom */
-  }
-
-  input[type="number"].field-input--compact {
-    -webkit-text-size-adjust: 100%;
-  }
-}
-
-
