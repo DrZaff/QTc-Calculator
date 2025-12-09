@@ -390,3 +390,51 @@ input[type=number]::-webkit-outer-spin-button {
 input[type=number] {
   -moz-appearance: textfield;
 }
+
+/* === iOS Install Hint Banner === */
+
+.ios-install-hint {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 9999;
+  padding: 10px 14px;
+  background: rgba(0, 0, 0, 0.95);
+  border-top: 1px solid rgba(0, 255, 102, 0.5);
+  box-shadow: 0 -0.4rem 1rem rgba(0, 255, 102, 0.25);
+  color: #e0ffe6;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 0.8rem;
+  line-height: 1.4;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.ios-install-hint-icon {
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+
+.ios-install-hint-text {
+  flex: 1;
+}
+
+.ios-install-hint-text strong {
+  color: #00ff66;
+}
+
+.ios-install-hint-close {
+  border: 1px solid rgba(0, 255, 102, 0.6);
+  background: transparent;
+  color: #e0ffe6;
+  font-size: 0.7rem;
+  padding: 2px 6px;
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.ios-install-hint-hidden {
+  display: none !important;
+}

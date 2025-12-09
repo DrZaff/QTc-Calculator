@@ -237,6 +237,20 @@
     </footer>
   </div>
 
+  <!-- iOS INSTALL BANNER -->
+  <div id="ios-install-hint" class="ios-install-hint ios-install-hint-hidden">
+    <div class="ios-install-hint-icon">📱</div>
+    <div class="ios-install-hint-text">
+      <strong>Install this app</strong><br />
+      On iPhone: tap the <strong>Share</strong> button, then choose
+      <strong>Add to Home Screen</strong>.
+    </div>
+    <button type="button" class="ios-install-hint-close" aria-label="Dismiss">
+      CLOSE
+    </button>
+  </div>
+
+  <!-- Existing JS -->
   <script src="script.js"></script>
   <script>
     if ("serviceWorker" in navigator) {
@@ -247,5 +261,9 @@
       });
     }
   </script>
+
+  <!-- iOS Install Hint Script -->
+  <script src="ios-install-hint.js"></script>
 </body>
 </html>
+
