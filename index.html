@@ -237,13 +237,15 @@
     </footer>
   </div>
 
-  <!-- iOS INSTALL BANNER -->
+  <!-- iOS + Android INSTALL BANNER -->
   <div id="ios-install-hint" class="ios-install-hint ios-install-hint-hidden">
     <div class="ios-install-hint-icon">📱</div>
     <div class="ios-install-hint-text">
       <strong>Install this app</strong><br />
       On iPhone: tap the <strong>Share</strong> button, then choose
-      <strong>Add to Home Screen</strong>.
+      <strong>Add to Home Screen</strong>.<br />
+      On Android: tap the <strong>⋮</strong> menu, then choose
+      <strong>Install app</strong> or <strong>Add to Home screen</strong>.
     </div>
     <button type="button" class="ios-install-hint-close" aria-label="Dismiss">
       CLOSE
@@ -264,6 +266,19 @@
 
   <!-- iOS Install Hint Script -->
   <script src="ios-install-hint.js"></script>
+
+  <!-- Hide banner when ?mode=desktop -->
+  <script>
+    (function () {
+      const params = new URLSearchParams(window.location.search);
+      if (params.get("mode") === "desktop") {
+        const hint = document.getElementById("ios-install-hint");
+        if (hint) {
+          hint.style.display = "none";
+          hint.classList.add("ios-install-hint-hidden");
+        }
+      }
+    })();
+  </script>
 </body>
 </html>
-
